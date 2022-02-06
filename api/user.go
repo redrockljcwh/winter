@@ -76,6 +76,9 @@ func Login(c *gin.Context){
 	fmt.Println(tokenString)
 	return
 }
+func Exit(c *gin.Context){
+
+}
 
 
 

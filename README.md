@@ -10,3 +10,5 @@ POST /api/douban/login
 在发送登录请求之后返回jwtToken，    
 后续进行请求时，将token写入请求头的Authorization，进行认证。
 Token的有效时间为7*24H。
+**退出登录**
+将Authorization内容删除。
