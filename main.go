@@ -23,6 +23,6 @@ func main() {
 
 	// 部署后端API
 r.POST("/api/douban/register",api.Register)
-	r.POST("/api/douban/Login",api.Login)
+	r.POST("/api/douban/login",api.Login)
 	r.Run()
 }
