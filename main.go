@@ -1,6 +1,7 @@
 package main
 
 import (
+	"static-server/api"
 	"static-server/dao"
 
 	"github.com/gin-contrib/cors"
@@ -21,6 +22,7 @@ func main() {
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	// 部署后端API
-
+r.POST("/api/douban/register",api.Register)
+	r.POST("/api/douban/Login",api.Login)
 	r.Run()
 }

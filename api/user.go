@@ -41,7 +41,7 @@ func Register(c *gin.Context){
 func Login(c *gin.Context){
 	username:=c.PostForm("username")
 	password:=c.PostForm("password")
-	if username == ""&&password == ""{
+	if username == ""||password == ""{
 		tool.RespErrorWithDate(c,"用户名或密码不能为空")
 		return
 	}
@@ -72,7 +72,9 @@ func Login(c *gin.Context){
 	}
 	Str = tokenString
 	c.JSON(200, gin.H{"token": tokenString})
+	//得到token后将token写入header，以此进行操作
 	fmt.Println(tokenString)
+	return
 }
 
 

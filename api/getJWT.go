@@ -14,14 +14,14 @@ func getting(ctx *gin.Context) {
 	tokenString := ctx.GetHeader("Authorization")
 	//vcalidate token formate
 	if tokenString == "" {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "权限不足"})
+		ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "请先登录"})
 		ctx.Abort()
 		return
 	}
 
 	token, claims, err := ParseToken(tokenString)
 	if err != nil || !token.Valid {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "权限不足"})
+		ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "msg": "非法登录"})
 		ctx.Abort()
 		return
 	}
