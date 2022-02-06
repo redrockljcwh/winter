@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	"static-server/dao"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/static"
@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	dao.InitDB()
 	r := gin.Default()
 
 	// 处理跨域请求
@@ -20,12 +21,6 @@ func main() {
 	r.Use(static.Serve("/", static.LocalFile("./static", false)))
 
 	// 部署后端API
-	r.GET("/api/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"code": "200",
-			"data": "Ok",
-		})
-	})
 
 	r.Run()
 }

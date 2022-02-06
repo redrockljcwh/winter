@@ -8,7 +8,7 @@ import (
 var dB *sql.DB
 
 func InitDB() {
-	db, err := sql.Open("mysql", "winter:winter@tcp(localhost:3306)/winter_work")
+	db, err := sql.Open("mysql", "winter:winter@tcp(1.117.229.34)/winter_work")
 	if err != nil {
 		panic(err)
 	}

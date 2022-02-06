@@ -24,7 +24,7 @@ user.Username = username
 }
 
 func InsertUser(user model.User) error {
-	_, err := dB.Exec("INSERT INTO user(username, password) "+"values(?, ?);", user.Username, user.Password)
+	_, err := dB.Exec("INSERT INTO users(username, password) "+"values(?, ?);", user.Username, user.Password)
 	return err
 }
 

@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"net/http"
 	"static-server/model"
 	"static-server/service"
 	"static-server/tool"
 	"time"
 )
-
+var Jwtkey = []byte("redrock")
+var Str string
 func Register(c *gin.Context){
 	user:=model.User{}
 	username := c.PostForm("username")
@@ -55,10 +55,6 @@ func Login(c *gin.Context){
 		tool.RespErrorWithDate(c,"用户名或密码错误")
 		return
 	}
-	var jwtkey = []byte("redrock")
-	var Str string
-
-
 
 	expireTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
@@ -70,12 +66,13 @@ func Login(c *gin.Context){
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// fmt.Println(token)
-	tokenString, err := token.SignedString(jwtkey)
+	tokenString, err := token.SignedString(Jwtkey)
 	if err != nil {
 		fmt.Println(err)
 	}
 	Str = tokenString
 	c.JSON(200, gin.H{"token": tokenString})
+	fmt.Println(tokenString)
 }
 
 

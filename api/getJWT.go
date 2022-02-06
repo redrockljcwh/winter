@@ -32,7 +32,7 @@ func getting(ctx *gin.Context) {
 func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
 	Claims := &Claims{}
 	token, err := jwt.ParseWithClaims(tokenString, Claims, func(token *jwt.Token) (i interface{}, err error) {
-		return jwtkey, nil
+		return Jwtkey, nil
 	})
 	return token, Claims, err
 }
