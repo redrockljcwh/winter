@@ -10,7 +10,7 @@ type Claims struct {
 	Username string
 	jwt.StandardClaims
 }
-func getting(ctx *gin.Context) {
+func getting(ctx *gin.Context)(username string) {
 	tokenString := ctx.GetHeader("Authorization")
 	//vcalidate token formate
 	if tokenString == "" {
@@ -27,6 +27,7 @@ func getting(ctx *gin.Context) {
 	}
 	fmt.Println(111)
 	fmt.Println(claims.Username)
+	return claims.Username
 }
 
 func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {

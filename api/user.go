@@ -23,6 +23,7 @@ func Register(c *gin.Context){
 	if err!=nil{
 		fmt.Println(err)
 		tool.RespErrorWithDate(c,"服务器错误")
+		c.Abort()
 		return
 	}
 	if err==nil&&check {
@@ -34,6 +35,7 @@ func Register(c *gin.Context){
 	if err!=nil{
 		fmt.Println(err)
 		tool.RespErrorWithDate(c,"服务器错误")
+		c.Abort()
 	}
 	tool.RespSuccessfulWithDate(c,"注册成功，请进行登录")
 	return
@@ -49,6 +51,7 @@ func Login(c *gin.Context){
 	if err!=nil{
 		fmt.Println(err)
 		tool.RespInternalError(c)
+		c.Abort()
 		return
 	}
 	if !check{
@@ -76,8 +79,25 @@ func Login(c *gin.Context){
 	fmt.Println(tokenString)
 	return
 }
-func Exit(c *gin.Context){
-
+func ChangePassword(c *gin.Context){
+	username:=getting(c)
+    check,err:=service.IsRepeatUsername(username)
+	if err!=nil {
+		tool.RespInternalError(c)
+		c.Abort()
+		return
+	}
+	if !check{
+		tool.RespInternalError(c)
+		return
+	}
+	newpassword:=c.PostForm("newpassword")
+	err = service.ChangePassword(username,newpassword)
+	if err != nil{
+		tool.RespInternalError(c)
+	}
+	tool.RespSuccessfulWithDate(c,"密码修改成功")
+	return
 }
 
 

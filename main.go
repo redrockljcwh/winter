@@ -24,5 +24,7 @@ func main() {
 	// 部署后端API
 r.POST("/api/douban/register",api.Register)
 	r.POST("/api/douban/login",api.Login)
+	r.PUT("/api/douban/Password",api.ChangePassword)
+	r.GET("/api/douban/movie",api.GetMovie)
 	r.Run()
 }

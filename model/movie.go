@@ -11,5 +11,6 @@ type Movie struct {
 	Length string
 	Stuff string
 	Id int
+	Writer string
 	PicNum int
 }
