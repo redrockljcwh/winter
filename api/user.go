@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"net/http"
 	"static-server/model"
 	"static-server/service"
 	"static-server/tool"
@@ -99,7 +100,38 @@ func ChangePassword(c *gin.Context){
 	tool.RespSuccessfulWithDate(c,"密码修改成功")
 	return
 }
-
+func UpdateSelfinfo(c *gin.Context){
+	selfInfo:=c.PostForm("SelfInfo")
+	if len(selfInfo)>100{
+		tool.RespSuccessfulWithDate(c,"不可大于100个字。")
+		c.Abort()
+		return
+	}
+	username:=getting(c)
+    err:=service.UpdateSelfInfo(username,selfInfo)
+	if err != nil{
+		tool.RespInternalError(c)
+		c.Abort()
+		return
+	}
+	tool.RespSuccessful(c)
+}
+func UserInfo(c *gin.Context){
+	username:=c.Param("username")
+	user,err:=service.UserInfo(username)
+	if err != nil {
+		tool.RespInternalError(c)
+		c.Abort()
+		return
+	}
+	c.JSON(http.StatusOK,gin.H{
+		"username":user.Username,
+		"name":user.Name,
+		"selfInfo":user.SelfInfo,
+	})
+	tool.RespSuccessful(c)
+	return
+}
 
 
 //解析token

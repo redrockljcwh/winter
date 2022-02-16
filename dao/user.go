@@ -6,6 +6,10 @@ func UpdatePassword(username, newPassword string) error {
 	_, err := dB.Exec("UPDATE users SET password = ? WHERE username = ?", newPassword, username)
 	return err
 }
+func UpdateSelfInfo(username,selfInfo string) error {
+	_, err := dB.Exec("UPDATE users SET selfInfo = ? WHERE username = ?", selfInfo, username)
+	return err
+}
 
 func SelectUserByUsername(username string) (model.User, error) {
 	user := model.User{}

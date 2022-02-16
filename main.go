@@ -25,6 +25,8 @@ func main() {
 r.POST("/api/douban/register",api.Register)
 	r.POST("/api/douban/login",api.Login)
 	r.PUT("/api/douban/Password",api.ChangePassword)
-	r.GET("/api/douban/movie",api.GetMovie)
+	r.GET("/api/douban/movie/:id",api.GetMovie)
+	r.POST("/api/douban/user",api.UpdateSelfinfo)
+    r.GET("/api/douban/user/:username",api.UserInfo)
 	r.Run()
 }

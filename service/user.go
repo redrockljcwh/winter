@@ -46,3 +46,17 @@ func Register(user model.User) error {
 	err := dao.InsertUser(user)
 	return err
 }
+func UpdateSelfInfo(username,selfInfo string)(error){
+	err:=dao.UpdateSelfInfo(username,selfInfo)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func UserInfo(username string)(model.User,error){
+	user,err:=dao.SelectUserByUsername(username)
+	if err != nil{
+		return model.User{}, err
+	}
+	return user,err
+}

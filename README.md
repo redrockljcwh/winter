@@ -29,9 +29,19 @@ Stuff string,
 Id int,
 Writer string,
 PicNum int
-    
+    进行传参时，人名之间以分号隔开。        
 POST /api/douban/movie
-url query电影id,获取movie的信息
+url param电影id,获取movie的信息    
+**上传个人介绍**  
+POST /api/douban/user
+  通过token得到请求的用户名。
+SelfInfo string 不多于一百字。     
+**查看用户个人页**
+通过url传参，将要访问的用户主页的所有者的username填入url   
+GET /api/douban/user        
+"username":user.Username,       
+"name":user.Name,       
+"selfInfo":user.SelfInfo,
 
 **图片**
 为影人和剧照插入图片的傻瓜式解决办法，     
