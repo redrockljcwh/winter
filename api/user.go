@@ -20,6 +20,9 @@ func Register(c *gin.Context){
 		tool.RespErrorWithDate(c,"用户名或密码不能为空")
 		return
 	}
+	if len(username)<6{
+		tool.RespErrorWithDate(c,"用户名不能小于6位。")
+	}
 	check,err:=service.IsRepeatUsername(username)
 	if err!=nil{
 		fmt.Println(err)

@@ -29,5 +29,7 @@ r.POST("/api/douban/register",api.Register)
 	r.POST("/api/douban/user",api.UpdateSelfinfo)
     r.GET("/api/douban/user/:username",api.UserInfo)
 	r.GET("/api.douban/star/:id",api.GetStarById)
+	r.POST("/api/douban/movie/:id/comment",api.PostComment)
+	r.GET("/api/douban/movie/:id/comment",api.GetTheComments)
 	r.Run()
 }

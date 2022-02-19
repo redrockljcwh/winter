@@ -19,12 +19,14 @@ func RespInternalError(ctx *gin.Context) {
 
 func RespSuccessful(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
+		"code": 10000,
 		"info": "成功",
 	})
 }
 
 func RespSuccessfulWithDate(ctx *gin.Context, date interface{}) {
 	ctx.JSON(http.StatusOK, gin.H{
+		"code": 10000,
 		"info": "成功",
 		"date": date,
 	})

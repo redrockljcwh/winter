@@ -30,8 +30,11 @@ Id int,
 Writer string,
 PicNum int
     进行传参时，人名之间以分号隔开。        
-POST /api/douban/movie
-url :id,获取movie的信息    
+POST /api/douban/movie/:id
+url :id,获取movie的信息（PS.又新增了查看电影评分功能）      
+    POST/api/douban/movie/:id/comment    上传评论
+GET/api/douban/movie/:id/comment 查看评论
+
 **上传个人介绍**  
 POST /api/douban/user
   通过token得到请求的用户名。
