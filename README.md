@@ -1,4 +1,5 @@
 # winter
+（前端伙伴不写了所以我的文档很不讲究=.=）
 key-要求-数据类型-说明  
 **注册**  
 POST /api/douban/register   
@@ -19,7 +20,8 @@ newpassword 要求同password string 新密码
 form-data增加了Movie的模型     
 Name string,
 Director string,
-Main_performer string,
+Main_performer string，      
+此处主演上传两个人，上传格式为演员id+";"+演员id
 Type string,
 Country string,
 Language string,
@@ -28,8 +30,10 @@ Length string,
 Stuff string,
 Id int,
 Writer string,
-PicNum int
-    进行传参时，人名之间以分号隔开。        
+PicNum int  
+
+    进行传参时，id之间以分号隔开。传参时间格式为0000-00-00（年月日)
+
 POST /api/douban/movie/:id
 url :id,获取movie的信息（PS.又新增了查看电影评分功能）      
     POST/api/douban/movie/:id/comment    上传评论
@@ -47,6 +51,12 @@ GET /api/douban/user/:username
 "selfInfo":user.SelfInfo,
 **查看影人**
 POST /api/douban/star/:id
+影人id为五位，从10001开始    **影人页面尚未完善。**
+**增加了管理员权限，用户名为admin时有权限进行添加电影**    
+POST /api/douban/movie/admin "写不完了，具体格式看看代码吧。。。"    
+**按照类型查找电影**类似按照电影id查找影评，对数据库进行多行查找     
+**增加了电影名搜索**        
+GET /api/douban/movie/search/:name返回电影名和id
 **图片**
 为影人和剧照插入图片的傻瓜式解决办法，     
 每个影人、电影有自己的id，在数据库中存储该单位的图片数量，      

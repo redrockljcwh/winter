@@ -21,7 +21,8 @@ func PostComment(c *gin.Context){
 	nowtimestr := nowtime.Format("2002-02-02")
     comment.Date = nowtimestr
 	scorestr := c.PostForm("score")
-	comment.Score,err = strconv.Atoi(scorestr)
+	scoreint,_ := strconv.Atoi(scorestr)
+	comment.Score=float64(scoreint)
 	if err != nil{
 		tool.RespErrorWithDate(c,"非法评分")
 		return
