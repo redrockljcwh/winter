@@ -15,36 +15,27 @@ func GetMovie(c *gin.Context){
 	id,err1 := strconv.Atoi(idstring)
 	if err1 != nil {
 		tool.RespInternalError(c)
+		fmt.Println(1)
 		c.Abort()
 		return
 	}
+	fmt.Println(1)
 	movie,err := service.SelectMovie(id)
 	if err!=nil{
 		tool.RespInternalError(c)
+		fmt.Println(2)
 		c.Abort()
 		return
 	}
-	score := GetAvgScore(c)
-	idstr1 := movie.Main_performer[0:5]
-	id1,err:=strconv.Atoi(idstr1)
-	idstr2 := movie.Main_performer[6:]
-	id2,err := strconv.Atoi(idstr2)
-	star1,err:=service.SelectStarById(id1)
-	star2,err:=service.SelectStarById(id2)
 	c.JSON(http.StatusOK,gin.H{
 		"name":movie.Name,
 		"director":movie.Director,
-		"writer":movie.Writer,
-		"main":star1.Name+star2.Name,
 		"type":movie.Type,
 		"country":movie.Country,
 		"language":movie.Language,
 		"date":movie.Date,
-		"length":movie.Length,
-		"stuff":movie.Stuff,//演职员
-		"picnum":movie.PicNum,
-		"score":score,
 	})
+	tool.RespSuccessful(c)
 	return
 
 }
@@ -66,34 +57,6 @@ func InsertMovie(c *gin.Context){
 	}
 	return
 }
-func GetAvgScore(c *gin.Context)(score float64){
-	movieidstr:=c.Param("id")
-	movieid,err:=strconv.Atoi(movieidstr)
-	if err != nil {
-		tool.RespErrorWithDate(c,"请输入合法电影id")
-		return 0
-	}
-	comments,err:=service.GetCommentsByMovieId(movieid)
-	if err != nil {
-		tool.RespErrorWithDate(c,"请输入合法电影id")
-		return 0
-	}
-	tool.RespSuccessful(c)
-	var scores float64
-	for _, comment := range comments{
-	 scores = scores + comment.Score
-	}
-	length := len(comments)
-	l := float64(length)
-	avgscore1:=scores/l
-	avgscore := FloatRound(avgscore1,1)
-	return avgscore
-}
-func FloatRound(f float64, n int) float64 {
-	format := "%." + strconv.Itoa(n) + "f"
-	res, _ := strconv.ParseFloat(fmt.Sprintf(format, f), 64)
-	return res
-}//此函数来自https://studygolang.com/articles/12927
 func SearchByMovieName(c *gin.Context){
 	name:=c.Param("name")
 	movies,err:=service.SearchMovieByName(name)
@@ -101,7 +64,6 @@ func SearchByMovieName(c *gin.Context){
 		tool.RespErrorWithDate(c,"搜索的内容不存在")
 		return
 	}
-	tool.RespSuccessful(c)
 	for _,movie := range movies{
 		c.JSON(http.StatusOK,gin.H{
 			"movieid":movie.Id,

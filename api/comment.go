@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"static-server/model"
@@ -24,6 +25,7 @@ func PostComment(c *gin.Context){
 	scoreint,_ := strconv.Atoi(scorestr)
 	comment.Score=float64(scoreint)
 	if err != nil{
+		fmt.Println(err)
 		tool.RespErrorWithDate(c,"非法评分")
 		return
 	}
@@ -31,19 +33,22 @@ func PostComment(c *gin.Context){
 		tool.RespErrorWithDate(c,"非法评分")
 		return
 	}
+	comment.Username = getting(c)
 	check,err := service.CheckUserForComment(comment)
 	if err!=nil{
+		fmt.Println(err)
 		tool.RespInternalError(c)
 		c.Abort()
 		return
 	}
 	if check{
-		tool.RespErrorWithDate(c,"您已对本电影发表过评论了喔。不可重复评论。")
+		tool.RespErrorWithDate(c,"您已对本电影发表过评论了。不可重复评论。")
 		return
 	}
 	err = service.PostComment(comment)
     if err != nil {
 		tool.RespInternalError(c)
+		fmt.Println(err)
 		c.Abort()
 		return
 	}
@@ -63,7 +68,6 @@ func PostComment(c *gin.Context){
 		 tool.RespErrorWithDate(c,"请输入合法电影id")
 		 return
 	 }
-	 tool.RespSuccessful(c)
 	for _, comment := range comments{
 		 c.JSON(http.StatusOK,gin.H{
 			 "id":comment.Id,

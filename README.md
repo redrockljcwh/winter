@@ -35,7 +35,7 @@ PicNum int
     进行传参时，id之间以分号隔开。传参时间格式为0000-00-00（年月日)
 
 POST /api/douban/movie/:id
-url :id,获取movie的信息（PS.又新增了查看电影评分功能）      
+url :id,获取movie的信息    
     POST/api/douban/movie/:id/comment    上传评论
 GET/api/douban/movie/:id/comment 查看评论
 
@@ -54,9 +54,7 @@ POST /api/douban/star/:id
 影人id为五位，从10001开始    **影人页面尚未完善。**
 **增加了管理员权限，用户名为admin时有权限进行添加电影**    
 POST /api/douban/movie/admin "写不完了，具体格式看看代码吧。。。"    
-**按照类型查找电影**类似按照电影id查找影评，对数据库进行多行查找     
-**增加了电影名搜索**        
-GET /api/douban/movie/search/:name返回电影名和id
+**按照类型查找电影**类似按照电影id查找影评，对数据库进行多行查找
 **图片**
 为影人和剧照插入图片的傻瓜式解决办法，     
 每个影人、电影有自己的id，在数据库中存储该单位的图片数量，      

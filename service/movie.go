@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"static-server/dao"
 	"static-server/model"
 )
@@ -8,6 +9,7 @@ import (
 func SelectMovie(id int)(model.Movie,error){
 	movie,err:=dao.SelectMovieById(id)
 	if err != nil {
+		fmt.Println(2)
 		return movie, err
 	}
 

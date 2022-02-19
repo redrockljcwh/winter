@@ -32,6 +32,5 @@ r.POST("/api/douban/register",api.Register)
 	r.POST("/api/douban/movie/:id/comment",api.PostComment)
 	r.GET("/api/douban/movie/:id/comment",api.GetTheComments)
 	r.POST("/api/douban/movie/admin",api.InsertMovie)
-	r.GET("/api/douban/movie/search/:name",api.SearchByMovieName)
 	r.Run()
 }
